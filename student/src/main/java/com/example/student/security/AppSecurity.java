@@ -20,46 +20,11 @@ import javax.sql.DataSource;
 @Configuration
 public class AppSecurity {
 
+
     @Bean
-    public InMemoryUserDetailsManager userDetails()
-    {
-        UserDetails mary = User.builder()
-                .username("Mary")
-                .password(("{noop}mj123")) //noop is the encryption algo, pass123 is password for bob
-                .roles("STUDENT")
-                .build();
-
-        UserDetails peter = User.builder()
-                .username("Peter")
-                .password(("{noop}spidey456")) //noop is the encryption algo, pass123 is password for bob
-                .roles("STUDENT")
-                .build();
-
-        UserDetails robert = User.builder()
-                .username("Robert")
-                .password(("{noop}rdj3000")) //noop is the encryption algo, pass123 is password for bob
-                .roles("TEACHER")
-                .build();
-
-        UserDetails steve = User.builder()
-                .username("Steve")
-                .password(("{noop}cap1000")) //noop is the encryption algo, pass123 is password for bob
-                .roles("TEACHER")
-                .build();
-
-        return new InMemoryUserDetailsManager(mary,peter,robert,steve);
+    public UserDetailsManager users(DataSource dataSource) {
+        return new JdbcUserDetailsManager(dataSource);
     }
-
-
-//    @Bean
-//    public UserDetailsManager users(DataSource dataSource) {
-//        return new JdbcUserDetailsManager(dataSource);
-//    }
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return NoOpPasswordEncoder.getInstance(); // only for testing; use BCrypt in production
-//    }
 
 
 
