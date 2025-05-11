@@ -2,6 +2,10 @@ package com.example.student.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="student")
@@ -12,26 +16,46 @@ public class Student {
     @Column(name="id")
     private int id;
 
+
+    @NotNull(message = "First name is required")
+    @Size(min = 1, message = "First name must not be empty")
     @Column(name="first_name")
     private String firstName;
 
+
+    @NotNull(message = "Last name is required")
+    @Size(min = 1, message = "Last name must not be empty")
     @Column(name="last_name")
     private String lastName;
 
+
+    @Min(value = 0,message = "Marks should be greater than or equal to 0")
+    @Max(value = 100,message =  "Marks should be less than or equal to 100" )
     @Column(name="science")
     private int science;
 
+
+    @Min(value = 0,message = "Marks should be greater than or equal to 0")
+    @Max(value = 100,message =  "Marks should be less than or equal to 100" )
     @Column(name="maths")
     private int maths;
 
+
+    @Min(value = 0,message = "Marks should be greater than or equal to 0")
+    @Max(value = 100,message =  "Marks should be less than or equal to 100" )
     @Column(name="art")
     private int art;
 
+
+    @Min(value = 0, message = "Classes held cannot be negative")
     @Column(name="classes_held")
     private int classesHeld;
 
+
+    @Min(value = 0, message = "Classes held cannot be negative")
     @Column(name="classes_attended")
     private int classesAttended;
+
 
 
     //No args constructor is compulsorily required by JPA
@@ -112,6 +136,16 @@ public class Student {
     public void setClassesAttended(int classesAttended) {
         this.classesAttended = classesAttended;
     }
+
+
+    //For calculating attendance percentage without adding an extra database column
+    public int getAttendancePercentage() {
+        if (classesHeld == 0) {
+            return 0;
+        }
+        return (classesAttended * 100) / classesHeld;
+    }
+
 
     @Override
     public String toString() {

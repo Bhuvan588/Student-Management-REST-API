@@ -31,11 +31,23 @@ public class AppSecurity {
     @Bean
     public SecurityFilterChain filter(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(config -> config
+
+                //below added for REST API's
                 .requestMatchers(HttpMethod.GET, "/class/students").hasAnyRole("STUDENT", "TEACHER")
                 .requestMatchers(HttpMethod.GET, "/class/students/**").hasAnyRole("STUDENT", "TEACHER")
                 .requestMatchers(HttpMethod.POST, "/class/students").hasRole("TEACHER")
                 .requestMatchers(HttpMethod.PUT, "/class/students").hasRole("TEACHER")
                 .requestMatchers(HttpMethod.DELETE, "/class/students/**").hasRole("TEACHER")
+
+                //Below was added when thymeleaf forms and validation was added
+                // Allow frontend listing page for everyone
+                .requestMatchers("/students/student_list").permitAll()
+
+                // Protect student form (only TEACHERS can access)
+                .requestMatchers("/students/studentForm").hasRole("TEACHER")
+
+                // Allow form processing (POST from teachers)
+                .requestMatchers("/students/processForm").hasRole("TEACHER")
         );
 
         http.httpBasic(Customizer.withDefaults());

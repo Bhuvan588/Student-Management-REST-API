@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" >
+    <title>Title</title>
+
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .center {
+            text-align: center;
+        }
+        .add-button {
+            margin-bottom: 15px;
+        }
+    </style>
+
+
+</head>
+<body>
+
+<h2 class="center">Student List</h2>
+
+<div class="center add-button">
+    <a th:href="@{/students/studentForm}">Add New Student</a>
+</div>
+<table align="center">
+
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Science</th>
+            <th>Maths</th>
+            <th>Art</th>
+            <th>Attended</th>
+            <th>Classes Held</th>
+            <th>Attendance</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="student: ${students}">
+
+            <td th:text="${student.firstName}"></td>
+            <td th:text="${student.lastName}"></td>
+            <td th:text="${student.science}"></td>
+            <td th:text="${student.maths}"></td>
+            <td th:text="${student.art}"></td>
+            <td th:text="${student.classesHeld}"></td>
+            <td th:text="${student.classesAttended}"></td>
+            <td th:text="${student.attendancePercentage} + '%'"></td>
+
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
