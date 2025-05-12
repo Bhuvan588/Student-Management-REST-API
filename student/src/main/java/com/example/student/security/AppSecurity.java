@@ -48,9 +48,30 @@ public class AppSecurity {
 
                 // Allow form processing (POST from teachers)
                 .requestMatchers("/students/processForm").hasRole("TEACHER")
+
+
+
         );
 
-        http.httpBasic(Customizer.withDefaults());
+        http.formLogin(form-> form
+                .loginPage("/showLogin")
+                .loginProcessingUrl("/authenticate")
+                .defaultSuccessUrl("/students/student_list", true)
+                .permitAll()
+        );
+
+        http.logout(logout->logout
+
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/showLogin?logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll()
+        );
+
+        http.exceptionHandling(exception -> exception.accessDeniedPage("/access-denied"));
+
+
         http.csrf(AbstractHttpConfigurer::disable);
 
         return http.build();

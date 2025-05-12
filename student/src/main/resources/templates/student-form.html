@@ -16,6 +16,13 @@
 </head>
 <body>
 
+<div style="text-align: right; margin: 10px;">
+    <form th:action="@{/logout}" method="POST">
+        <button type="submit">Logout</button>
+    </form>
+</div>
+
+
 <form th:action="@{/students/processForm}" th:object="${student}" method="POST">
 
     <div class="form-group">
