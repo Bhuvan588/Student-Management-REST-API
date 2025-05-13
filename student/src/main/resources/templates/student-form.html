@@ -4,77 +4,211 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .error { color: red; }
+        body {
+          align-items: center;
+          background-color: #000;
+          display: flex;
+          justify-content: center;
+          height: 100vh;
+        }
+
         .form-container {
-            width: 400px;
-            margin: auto;
+          background-color: #15172b;
+          border-radius: 20px;
+          box-sizing: border-box;
+          padding: 20px;
+          width: 400px;
         }
+
         .form-group {
-            margin-bottom: 15px;
+          position: relative;
+          margin-bottom: 30px;
         }
+
+        .title {
+          color: #eee;
+          font-family: sans-serif;
+          font-size: 36px;
+          font-weight: 600;
+          text-align: center;
+          margin-bottom: 20px;
+        }
+
+        .subtitle {
+          color: #eee;
+          font-family: sans-serif;
+          font-size: 16px;
+          font-weight: 600;
+          text-align: center;
+          margin-bottom: 30px;
+        }
+
+        .input {
+          background-color: #303245;
+          border-radius: 12px;
+          border: 0;
+          box-sizing: border-box;
+          color: #eee;
+          font-size: 18px;
+          height: 50px;
+          outline: 0;
+          padding: 4px 20px 0;
+          width: 100%;
+        }
+
+        .input-container {
+          position: relative;
+          width: 100%;
+        }
+
+        .cut {
+          background-color: #15172b;
+          border-radius: 10px;
+          height: 20px;
+          left: 20px;
+          position: absolute;
+          top: -20px;
+          transform: translateY(0);
+          transition: transform 200ms;
+          width: 76px;
+        }
+
+        .input:focus ~ .cut,
+        .input:not(:placeholder-shown) ~ .cut {
+          transform: translateY(8px);
+        }
+
+        .placeholder {
+          color: #65657b;
+          font-family: sans-serif;
+          left: 20px;
+          line-height: 14px;
+          pointer-events: none;
+          position: absolute;
+          transform-origin: 0 50%;
+          transition: transform 200ms, color 200ms;
+          top: 20px;
+        }
+
+        .input:focus ~ .placeholder,
+        .input:not(:placeholder-shown) ~ .placeholder {
+          transform: translateY(-30px) translateX(10px) scale(0.75);
+        }
+
+        .input:not(:placeholder-shown) ~ .placeholder {
+          color: #808097;
+        }
+
+        .input:focus ~ .placeholder {
+          color: #dc2f55;
+        }
+
+        .submit {
+          background-color: #08d;
+          border-radius: 12px;
+          border: 0;
+          box-sizing: border-box;
+          color: #eee;
+          cursor: pointer;
+          font-size: 18px;
+          height: 50px;
+          margin-top: 38px;
+          width: 100%;
+        }
+
+        .submit:active {
+          background-color: #06b;
+        }
+
+        .error {
+          color: red;
+          font-size: 14px;
+          position: absolute;
+          top: 60px;
+          left: 10px;
+        }
+
     </style>
 </head>
 <body>
-
 <div style="text-align: right; margin: 10px;">
     <form th:action="@{/logout}" method="POST">
         <button type="submit">Logout</button>
     </form>
 </div>
 
+<div class="form-container">
+    <div class="title">Student Form</div>
+    <div class="subtitle">Please fill out your information below.</div>
 
-<form th:action="@{/students/processForm}" th:object="${student}" method="POST">
+    <form th:action="@{/students/processForm}" th:object="${student}" method="POST">
 
-    <div class="form-group">
-        First Name:
-        <input type="text" th:field="*{firstName}"/>
-        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"></span>
-    </div>
+        <div class="form-group">
+            <div class="input-container">
+                <input type="text" th:field="*{firstName}" class="input" id="firstName" placeholder=" " />
+                <div class="cut"></div>
+                <label for="firstName" class="placeholder">First Name</label>
+            </div>
+            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"></span>
+        </div>
 
-    <div class="form-group">
-        Last Name:
-        <input type="text" th:field="*{lastName}"/>
-        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
-    </div>
+        <div class="form-group">
+            <div class="input-container">
+                <input type="text" th:field="*{lastName}" class="input" id="lastName" placeholder=" " />
+                <div class="cut"></div>
+                <label for="lastName" class="placeholder">Last Name</label>
+            </div>
+            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
+        </div>
 
+        <div class="form-group">
+            <div class="input-container">
+                <input type="number" th:field="*{science}" class="input" id="science" placeholder=" " />
+                <div class="cut"></div>
+                <label for="science" class="placeholder">Science Marks</label>
+            </div>
+            <span th:if="${#fields.hasErrors('science')}" th:errors="*{science}" class="error"></span>
+        </div>
 
-    <div class="form-group">
-        Science Marks:
-        <input type="number" th:field="*{science}"/>
-        <span th:if="${#fields.hasErrors('science')}" th:errors="*{science}" class="error"></span>
-    </div>
+        <div class="form-group">
+            <div class="input-container">
+                <input type="number" th:field="*{maths}" class="input" id="maths" placeholder=" " />
+                <div class="cut"></div>
+                <label for="maths" class="placeholder">Maths Marks</label>
+            </div>
+            <span th:if="${#fields.hasErrors('maths')}" th:errors="*{maths}" class="error"></span>
+        </div>
 
+        <div class="form-group">
+            <div class="input-container">
+                <input type="number" th:field="*{art}" class="input" id="art" placeholder=" " />
+                <div class="cut"></div>
+                <label for="art" class="placeholder">Art Marks</label>
+            </div>
+            <span th:if="${#fields.hasErrors('art')}" th:errors="*{art}" class="error"></span>
+        </div>
 
-    <div class="form-group">
-        Maths Marks:
-        <input type="number" th:field="*{maths}"/>
-        <span th:if="${#fields.hasErrors('maths')}" th:errors="*{maths}" class="error"></span>
-    </div>
+        <div class="form-group">
+            <div class="input-container">
+                <input type="number" th:field="*{classesHeld}" class="input" id="classesHeld" placeholder=" " />
+                <div class="cut"></div>
+                <label for="classesHeld" class="placeholder">Classes Held</label>
+            </div>
+            <span th:if="${#fields.hasErrors('classesHeld')}" th:errors="*{classesHeld}" class="error"></span>
+        </div>
 
+        <div class="form-group">
+            <div class="input-container">
+                <input type="number" th:field="*{classesAttended}" class="input" id="classesAttended" placeholder=" " />
+                <div class="cut"></div>
+                <label for="classesAttended" class="placeholder">Classes Attended</label>
+            </div>
+            <span th:if="${#fields.hasErrors('classesAttended')}" th:errors="*{classesAttended}" class="error"></span>
+        </div>
 
-    <div class="form-group">
-        Art Marks:
-        <input type="number" th:field="*{art}"/>
-        <span th:if="${#fields.hasErrors('art')}" th:errors="*{art}" class="error"></span>
-    </div>
+        <input type="submit" value="Submit" class="submit">
 
-
-    <div class="form-group">
-        Classes Held:
-        <input type="number" th:field="*{classesHeld}"/>
-        <span th:if="${#fields.hasErrors('classesHeld')}" th:errors="*{classesHeld}" class="error"></span>
-    </div>
-
-    <div class="form-group">
-        Classes Attended:
-        <input type="number" th:field="*{classesAttended}"/>
-        <span th:if="${#fields.hasErrors('classesAttended')}" th:errors="*{classesAttended}" class="error"></span>
-    </div>
-
-
-    <input type="submit" value="Submit">
-
-</form>
-
+    </form>
+</div>
 </body>
 </html>

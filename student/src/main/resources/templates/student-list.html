@@ -5,20 +5,75 @@
     <title>Title</title>
 
     <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            padding: 8px;
+        body {
+          background-color: #141414;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          color: #f0f0f0;
+          padding: 20px;
         }
-        th {
-            background-color: #f2f2f2;
+
+        h2 {
+          text-align: center;
+          color: #ffffff;
         }
-        .center {
-            text-align: center;
+
+        .form-container {
+          background-color: #2a3338;
+          padding: 30px;
+          border-radius: 10px;
+          width: 400px;
+          margin: 0 auto;
+          box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
         }
-        .add-button {
-            margin-bottom: 15px;
+
+        .form-group {
+          margin-bottom: 20px;
         }
+
+        label {
+          display: block;
+          margin-bottom: 5px;
+          color: #ddd;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+          width: 100%;
+          padding: 10px;
+          background-color: #3d4449;
+          border: 1px solid #555;
+          border-radius: 5px;
+          color: #fff;
+          font-size: 14px;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+          border-color: #3282b8;
+          outline: none;
+        }
+
+        button[type="submit"] {
+          width: 100%;
+          padding: 10px;
+          background-color: #3282b8;
+          color: white;
+          font-size: 14px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          text-transform: uppercase;
+        }
+
+        button[type="submit"]:hover {
+          background-color: #4ba3d4;
+        }
+
+        .error {
+          color: lightsalmon;
+          font-size: 13px;
+        }
+
     </style>
 
 
