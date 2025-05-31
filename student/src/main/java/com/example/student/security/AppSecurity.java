@@ -32,6 +32,15 @@ public class AppSecurity {
     public SecurityFilterChain filter(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(config -> config
 
+                // SWAGGER PERMISSIONS
+                .requestMatchers(
+                        "/swagger-ui/**",
+                        "/swagger-ui.html",
+                        "/v3/api-docs/**",
+                        "/v3/api-docs.yaml",
+                        "/webjars/**"
+                ).permitAll()
+
                 //below added for REST API's
                 .requestMatchers(HttpMethod.GET, "/class/students").hasAnyRole("STUDENT", "TEACHER")
                 .requestMatchers(HttpMethod.GET, "/class/students/**").hasAnyRole("STUDENT", "TEACHER")
@@ -48,6 +57,8 @@ public class AppSecurity {
 
                 // Allow form processing (POST from teachers)
                 .requestMatchers("/students/processForm").hasRole("TEACHER")
+
+                .anyRequest().authenticated()
 
 
 
